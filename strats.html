@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Comps · Strats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1923; --panel:#16222e; --panel2:#1c2a37; --line:#2a3a49;
+    --text:#ece8e1; --muted:#8b9aa8; --red:#ff4655; --green:#6fcf97; --amber:#f2c48a;
+    --Duelist:#f2994a; --Initiator:#56ccf2; --Controller:#a78bfa; --Sentinel:#6fcf97;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,sans-serif;font-size:15px;line-height:1.55}
+  a{color:inherit}
+  header{display:flex;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line);background:#0b131b;position:sticky;top:0;z-index:50}
+  header h1{margin:0;font:700 22px Oswald,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+  header h1 span{color:var(--red)}
+  .nav{display:flex;gap:4px;margin-left:8px}
+  .nav a{text-decoration:none;font:600 13px Inter;color:var(--muted);padding:7px 12px;border-radius:6px;border:1px solid transparent}
+  .nav a:hover{color:var(--text)}
+  .nav a.on{color:var(--text);background:var(--panel2);border-color:var(--line)}
+  .spacer{flex:1}
+  .meta{font-size:12px;color:var(--muted)}
+
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;padding:16px 22px 0;max-width:1240px;margin:0 auto}
+  .tab{background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:8px 16px;font:700 15px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+  .tab:hover{color:var(--text)}
+  .tab.on{color:#fff;background:var(--red);border-color:var(--red)}
+
+  main{max-width:1240px;margin:0 auto;padding:16px 22px 60px}
+  .hero{position:relative;border-radius:12px;overflow:hidden;background:var(--panel2) center/cover no-repeat;min-height:150px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 24px}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,25,35,.95) 25%,rgba(15,25,35,.45))}
+  .hero > *{position:relative}
+  .hero h2{margin:0;font:700 44px/1 Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .hero p{margin:8px 0 0;color:#c9d1d9;max-width:720px}
+
+  h3{font:700 16px Oswald,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:28px 0 12px}
+  .comp{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;position:relative}
+  .card .pl{font:700 15px Oswald,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+  .face{width:84px;height:84px;border-radius:10px;overflow:hidden;position:relative;background:var(--panel2);border-bottom:3px solid var(--rc)}
+  .face img{position:relative;width:100%;height:100%;object-fit:cover;display:block}
+  .face .ini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 26px Oswald,sans-serif;color:var(--rc)}
+  .card .ag{font-weight:600}
+  .card .role{font-size:12px;color:var(--rc)}
+  .badge{font-size:11px;border-radius:99px;padding:2px 8px;border:1px solid var(--line);color:var(--muted)}
+  .badge.chg{border-color:var(--amber);color:var(--amber)}
+  .badge.keep{border-color:#2f5e45;color:var(--green)}
+  .card .job{font-size:12.5px;color:#c9d1d9;line-height:1.4;margin-top:2px}
+
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:8px 14px;font:600 13px Inter,sans-serif;cursor:pointer}
+  .btn:hover{border-color:var(--muted)}
+  .btn.red{background:var(--red);border-color:var(--red);color:#fff}
+  .small{font-size:12.5px;color:var(--muted)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .box h4{margin:0 0 8px;font:700 15px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .box ul,.box ol{margin:0;padding-left:20px}
+  .box li{margin:4px 0}
+  .box.flaws{border-color:#5a2a30;background:#1d1519}
+  .box.flaws h4{color:var(--red)}
+  .box.alt{border-color:#4a3c22}
+  .box.alt h4{color:var(--amber)}
+  b.p{color:#fff}
+  .tag{display:inline-block;font:700 11px Inter;padding:1px 7px;border-radius:4px;margin-right:6px;vertical-align:1px}
+  .tag.atk{background:#3a1d22;color:#ff8a95}
+  .tag.def{background:#16303a;color:#7dd3f0}
+  table.pos{width:100%;border-collapse:collapse;font-size:14px}
+  table.pos td{padding:7px 8px;border-top:1px solid var(--line);vertical-align:top}
+  table.pos td:first-child{white-space:nowrap;font-weight:600;width:1%}
+  textarea.notes{width:100%;min-height:110px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:14px Inter,sans-serif;resize:vertical}
+  .sync{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+  .sync i{width:8px;height:8px;border-radius:50%;display:inline-block;background:var(--muted)}
+
+  .overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:14px}
+  .ov{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .ov .ini{font-size:16px}
+  .ov h4{margin:0 0 6px;font:700 15px Oswald,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .sources{font-size:12.5px;color:var(--muted);margin-top:36px;border-top:1px solid var(--line);padding-top:14px}
+  .sources a{color:#9fb3c8}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line);padding:9px 16px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:300}
+  .toast.show{opacity:1}
+  @media (max-width:900px){ .comp{grid-template-columns:repeat(2,1fr)} .grid2{grid-template-columns:1fr} .hero h2{font-size:32px} }
+
+  .gate{position:fixed;inset:0;z-index:1000;background:rgba(10,16,23,.97);display:flex;align-items:center;justify-content:center}
+  .gate .gbox{background:#16222e;border:1px solid #2a3a49;border-radius:12px;padding:28px;width:min(420px,92vw);text-align:center}
+  .gate h2{margin:0 0 6px;font:700 24px Oswald,Impact,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .gate p{margin:0 0 16px;color:#8b9aa8;font-size:14px}
+  .gate input{width:100%;background:#0f1923;border:1px solid #2a3a49;color:#ece8e1;border-radius:8px;padding:11px 12px;font:600 16px Inter,sans-serif;text-align:center;letter-spacing:.1em}
+  .gate button{margin-top:12px;width:100%;background:#ff4655;border:0;color:#fff;border-radius:8px;padding:11px;font:600 14px Inter,sans-serif;cursor:pointer}
+  .gate .gerr{color:#ff4655;font-size:13px;min-height:18px;margin-top:10px}
+  .codebtn{background:none;border:0;color:#8b9aa8;font:500 12px Inter,sans-serif;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+  <h1>Team <span>Comps</span></h1>
+  <nav class="nav"><a href="index.html">Board</a><a href="strats.html" class="on">Strats</a></nav>
+  <div class="spacer"></div>
+  <span class="meta">Playbook for patch 13.09 · built 10 Nov 2026</span>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* Same database as the Board page. */
+const DATABASE_URL = "https://team-comps-e65ad-default-rtdb.firebaseio.com";
+const DB = DATABASE_URL.trim().replace(/\/+$/,"");
+
+/* ---------- team code: the board lives at teams/<code> and the code is never stored in this file ---------- */
+const CODE_KEY = "vcp_team_code";
+const TEAM = (() => { try{ return (localStorage.getItem(CODE_KEY) || "").trim(); }catch(e){ return ""; } })();
+const ROOT = "teams/" + TEAM;
+function showGate(){
+  const g = document.createElement("div");
+  g.className = "gate";
+  g.innerHTML = `<div class="gbox"><h2>Team code</h2><p>Enter the code your team gave you. You only need to do this once on this device.</p>
+    <input id="gateIn" autocomplete="off" spellcheck="false" placeholder="xxxx-xxxx-xxxx"><button id="gateBtn">Unlock</button><div class="gerr" id="gateErr"></div></div>`;
+  document.body.appendChild(g);
+  const inp = g.querySelector("#gateIn"), err = g.querySelector("#gateErr");
+  const go = async () => {
+    const code = inp.value.trim().toLowerCase();
+    if(!/^[a-z0-9-]{6,40}$/.test(code)){ err.textContent = "That doesn't look like a team code."; return; }
+    err.textContent = "Checking…";
+    try{
+      const pl = await fetch(`${DATABASE_URL.replace(/\/+$/,"")}/teams/${code}/players.json`).then(r => r.ok ? r.json() : null);
+      if(!pl){ err.textContent = "Wrong code."; return; }
+      try{ localStorage.setItem(CODE_KEY, code); }catch(e){}
+      location.reload();
+    }catch(e){ err.textContent = "Couldn't reach the database. Check your internet."; }
+  };
+  g.querySelector("#gateBtn").onclick = go;
+  inp.addEventListener("keydown", e => { if(e.key === "Enter") go(); });
+  setTimeout(() => inp.focus(), 50);
+}
+function forgetCode(){ try{ localStorage.removeItem(CODE_KEY); }catch(e){} location.reload(); }
+if(!TEAM) document.addEventListener("DOMContentLoaded", showGate);
+const PLAYERS = ["Jizzychip","ace","michael","YUZUFRUIT","GOAT"];   // board columns 1-5 (names refresh from the board)
+const M = "https://media.valorant-api.com";
+const AG = {
+  astra:["Astra","Controller","41fb69c1-4189-7b37-f117-bcaf1e96f1bf"], brimstone:["Brimstone","Controller","9f0d8ba9-4140-b941-57d3-a7ad57c6b417"],
+  chamber:["Chamber","Sentinel","22697a3d-45bf-8dd7-4fec-84a9e28c69d7"], clove:["Clove","Controller","1dbf2edd-4729-0984-3115-daa5eed44993"],
+  cypher:["Cypher","Sentinel","117ed9e3-49f3-6512-3ccf-0cada7e3823b"], fade:["Fade","Initiator","dade69b4-4f5a-8528-247b-219e5a1facd6"],
+  harbor:["Harbor","Controller","95b78ed7-4637-86d9-7e41-71ba8c293152"], hush:["Hush","Duelist","ddd5a15c-4fbe-42fa-3789-11a55ca5ee04"],
+  jett:["Jett","Duelist","add6443a-41bd-e414-f6ad-e58d267f4e95"], neon:["Neon","Duelist","bb2a4828-46eb-8cd1-e765-15848195d751"],
+  omen:["Omen","Controller","8e253930-4c05-31dd-1b6c-968525494517"], phoenix:["Phoenix","Duelist","eb93336a-449b-9c1b-0a54-a891f7921d69"],
+  raze:["Raze","Duelist","f94c3b30-42be-e959-889c-5aa313dba261"], sage:["Sage","Sentinel","569fdd95-4d10-43ab-ca70-79becc718b46"],
+  skye:["Skye","Initiator","6f2a04ca-43e0-be17-7f36-b3908627744d"], sova:["Sova","Initiator","320b2a48-4d9b-a075-30f1-1f93a9b638fa"],
+  viper:["Viper","Controller","707eab51-4836-f488-046a-cda6bf494859"], vyse:["Vyse","Sentinel","efba5359-4016-a1e5-7626-b1ae76895940"],
+  waylay:["Waylay","Duelist","df1cb487-4902-002e-5c17-d28e83e78588"], yoru:["Yoru","Duelist","7f94d92c-4234-0a36-9646-3a87eb8b5c89"]
+};
+const MAPIMG = {
+  Abyss:"224b0a95-48b9-f703-1bd8-67aca101a61f", Bind:"2c9d57ec-4431-9c5e-2939-8f9ef6dd5cba", Haven:"2bee0dc9-4ffe-519b-1cbd-7fbe763a6047",
+  Corrode:"1c18ab1f-420d-0d8b-71d0-77ad3c439115", Sunset:"92584fbe-486a-b1b2-9faa-39b0f486b498", Lotus:"2fe4ed3a-450a-948b-6d6b-e89a78e680a9",
+  Summit:"756da597-416b-c0f2-f47b-afbdf28670bc"
+};
+
+/* ---------------- THE PLAYBOOK ----------------
+   comp: one entry per player, in board order: [agent, was, job] */
+const STRATS = {
+Abyss: {
+  tagline: "No railings, long lines, fall = death. Pros play two controllers and no sentinel here, with Sova in every single comp.",
+  comp: [
+    ["harbor","yoru","Second controller. Walls cut the long lines so we can cross open ground."],
+    ["yoru","chamber","Second duelist with Waylay. Flash, teleport and lurk Mid."],
+    ["omen","omen","Main smokes for the execute. Teleports to reposition after the plant."],
+    ["sova","sova","Round-start recon every round. Shock darts for the post-plant."],
+    ["waylay","waylay","First in on site. Uses her mobility to get out after the entry."]
+  ],
+  flaws: [
+    "Only one controller on the map with the longest sightlines. Pros run two here (Harbor 81%, plus Astra or Omen).",
+    "Chamber was taking the slot pros give to a second controller. Pros mostly skip sentinels on Abyss.",
+    "You already had the right core: Yoru + Waylay is the pro duelist pair (69% each) and Sova was in. That stays."
+  ],
+  alt: "If Jizzychip's Harbor isn't ready yet, play your old comp (Jizzychip Yoru, ace Chamber). It's fine, just weaker on attack.",
+  attack: [
+    "<b>Default:</b> <b class='p'>YUZUFRUIT</b> Sova recons Mid at round start. <b class='p'>ace</b> Yoru and <b class='p'>michael</b> Omen take Mid with a smoke. <b class='p'>GOAT</b> and <b class='p'>Jizzychip</b> sit at B Main for info and only peek with utility.",
+    "<b>B hit:</b> Harbor walls off B Tower and B Nest. Omen smokes deeper. Sova darts the site. Waylay enters first from B Main, and one player comes through B Danger for the crossfire. Yoru flanks from Mid to catch rotators.",
+    "<b>A hit:</b> Omen smokes A Tower. Harbor walls Mid off from A Link. Sova darts A Security. Waylay and Yoru enter from A Main while one player pushes A Link from Mid.",
+    "<b>Plant and post-plant:</b> Plant behind cover, away from the edges. Play crossfires and use Sova shock darts and Harbor's Cascade to stop the defuse. Never chase near a ledge."
+  ],
+  defense: [
+    ["A site","<b class='p'>Jizzychip</b> (Harbor) + <b class='p'>GOAT</b> (Waylay). Harbor wall delays the A Main push and Waylay trades."],
+    ["Mid","<b class='p'>ace</b> (Yoru). Early info and flash-peeks, then teleport out. Don't die alone."],
+    ["B site","<b class='p'>michael</b> (Omen) + <b class='p'>YUZUFRUIT</b> (Sova). Sova bolts B Main at round start and Omen smokes the push."],
+    ["Rule","No sentinel means no flank watch. Call every lurk loudly and play for retakes with two controllers' smokes."]
+  ],
+  keys: ["Abyss is slightly attack-sided, so force buys on attack are OK.","Never fight right next to an edge: one knockback or bad strafe kills you.","Two controllers = always save one smoke for the retake or post-plant."]
+},
+Bind: {
+  tagline: "Two sites, no mid, two one-way teleporters. Pros run Brimstone + Viper together (81%) and Fade in most comps.",
+  comp: [
+    ["raze","raze","Entry. Satchels into Showers and Hookah, Boom Bot to clear Hookah."],
+    ["fade","skye","Prowlers and Haunt clear Hookah, Garden and Truck before anyone peeks."],
+    ["brimstone","brimstone","Three smokes at once. Stim and molly for the post-plant."],
+    ["cypher","hush","Watches the teleporters and flanks. Cams catch lurks."],
+    ["viper","brimstone","Wall splits each site. Snake Bites stop the defuse."]
+  ],
+  flaws: [
+    "Two duelists and one controller. Bind's sites are wide open without double smokes.",
+    "Hush is brand new and starting out low in the tier lists. Save her for when she's been figured out.",
+    "No one was watching flanks. Teleporter fakes and lurks are how Bind rounds are lost, so Cypher fixes that.",
+    "GOAT is the only one who has Viper. Viper is in 3 of our 7 best comps, so that's GOAT's job now."
+  ],
+  alt: "ace can stay on Skye if that's his comfort pick. Fade is what pros play here (71%), but Skye does the same job.",
+  attack: [
+    "<b>Default:</b> One player takes A Short and one holds B Long for info. Raze and Fade play off Hookah. Cypher sets a trip and cam behind us for flank watch.",
+    "<b>A hit (Showers + Short):</b> Brimstone smokes A Heaven and the U-Hall exit. Viper walls the site in half. Fade prowls Truck. Raze satchels in from Showers first and the rest trade off Short.",
+    "<b>B hit (Long + Hookah):</b> Viper walls down B Long. Brimstone smokes B Elbow and Garden. Fade Haunts the site. Raze nades and Boom Bots Hookah, then everyone collapses.",
+    "<b>Fake:</b> Make noise with the teleporter, then hit the other site. Defenders hear the tele and rotate early.",
+    "<b>Post-plant:</b> Brim molly plus Viper Snake Bite on the spike. Cypher cam watching the flank route."
+  ],
+  defense: [
+    ["A site","<b class='p'>YUZUFRUIT</b> (Cypher) anchors with trips on Showers. <b class='p'>michael</b> (Brimstone) smokes A Short or Showers to delay."],
+    ["B site","<b class='p'>GOAT</b> (Viper) walls and orbs B Long and Hookah. <b class='p'>ace</b> (Fade) Haunts Hookah at round start."],
+    ["Roam","<b class='p'>Jizzychip</b> (Raze) plays aggressive at Hookah or A Short for early picks, then falls back."],
+    ["Rule","Listen for the teleporter sound. Rotate only on real info, not on noise."]
+  ],
+  keys: ["Double controller is the whole point of this comp: one smokes, one walls.","Don't over-rotate when you hear the teleporter. That's what fakes rely on.","Newest pro data for Bind is from Champions 2025."]
+},
+Corrode: {
+  tagline: "Three lanes and a long mid with lots of high ground. Most top teams ran Omen + Viper together, with Fade.",
+  comp: [
+    ["fade","fade","Clears the high ground and corners. Haunt before every hit."],
+    ["yoru","yoru","Flashes for entries and teleports to fake or flank."],
+    ["vyse","vyse","Traps seal the flank and the entries on defense."],
+    ["omen","neon","Second controller next to Viper. Smokes high ground and teleports."],
+    ["viper","viper","Walls cut the long mid and the sites. Lineups for the post-plant."]
+  ],
+  flaws: [
+    "Neon + Yoru with only Viper smoking. Pros paired Omen with Viper (73% / 67%), so we swap Neon for Omen.",
+    "Everything else was already the pro comp (Fade, Yoru, Vyse, Viper). Good instincts here."
+  ],
+  alt: "If the team wants more firepower, YUZUFRUIT goes back to Neon and Viper does all the smoking. Expect harder executes.",
+  attack: [
+    "<b>Default:</b> Win Mid first. Fade prowls Mid Bottom to Stairs. Omen smokes Mid Window. Viper walls the long sightline. Vyse traps the flank behind us.",
+    "<b>A split:</b> Three players push A Main into A Yard, while Yoru plus one more go Mid to A Link. Omen smokes A Crane and A Elbow. Fade Haunts A Pocket and the Yard. Hit together on Viper's wall.",
+    "<b>B hit:</b> Push B Main and B Link from Mid at the same time. Omen smokes B Tower and B Arch. Fade clears B Elbow. Yoru flashes Main for the entry.",
+    "<b>Post-plant:</b> Viper molly lineups plus Vyse traps on the retake routes. Hold from cover, not from the open site."
+  ],
+  defense: [
+    ["B site","<b class='p'>michael</b> (Vyse) anchors with traps on the entry. <b class='p'>GOAT</b> (Viper) holds the high angle. B favours the defence, so two players is enough."],
+    ["Mid","<b class='p'>ace</b> (Yoru) gets early info, then teleports out. Never hold Mid to the death."],
+    ["A site","<b class='p'>YUZUFRUIT</b> (Omen) + <b class='p'>Jizzychip</b> (Fade). One holds the Yard from high ground, one plays back site watching A Elbow."],
+    ["Rule","Losing Mid means they can split either site. Contest it early with utility, then fall back."]
+  ],
+  keys: ["Check above and below before peeking, because angles are layered.","Mid control decides most rounds on both sides.","Newest pro data for Corrode is from Champions 2025."]
+},
+Haven: {
+  tagline: "Three sites, defenders spread thin, fast rotations win. Pros play Neon + Sova + Omen + Chamber with a second duelist.",
+  comp: [
+    ["phoenix","phoenix","Self-sufficient entry. Haven is Phoenix's best map in pro play."],
+    ["neon","jett","Fastest rotations and entries on a three-site map."],
+    ["omen","omen","Smokes plus teleports to get from one site to another quickly."],
+    ["sova","sova","Recon at round start tells us which site is weak."],
+    ["chamber","chamber","Op and Trademark. Teleports back to rotate."]
+  ],
+  flaws: [
+    "Already a good comp. It's basically the pro one.",
+    "Jett → Neon: pros pick Neon 85% here because speed between three sites matters more than Jett's dash.",
+    "The real risk is execution: on a three-site map, slow defaults lose to rotations."
+  ],
+  alt: "If ace is our main Operator player, keep Jett. Chamber can't hold every long angle alone.",
+  attack: [
+    "<b>Default:</b> One player A Long, two Mid (Window and Courtyard), two C Long. Sova bolts where it tells us most. Find the 1-man site and hit it fast.",
+    "<b>C hit:</b> Omen smokes C Link and the C Garage entry. Sova darts the site. Neon slides in with Phoenix's flash. Plant default and hold from Long and Garage.",
+    "<b>A hit:</b> Omen smokes A Heaven and A Link. Three players from A Long, two from A Short (Sewer). Sova darts the site corners. Phoenix flashes over the wall.",
+    "<b>B fast:</b> If Mid is open, five players go through Mid to B in one go. B is usually held by one person.",
+    "<b>Post-plant:</b> Chamber plays off the spike from distance. Everyone else crossfires, never stacking in one spot."
+  ],
+  defense: [
+    ["A site","<b class='p'>GOAT</b> (Chamber) holds A Long with the Op. <b class='p'>Jizzychip</b> (Phoenix) holds A Short."],
+    ["B / Mid","<b class='p'>ace</b> (Neon). Watches Mid and B, then gets to retakes fast."],
+    ["C site","<b class='p'>michael</b> (Omen) + <b class='p'>YUZUFRUIT</b> (Sova). Sova bolts C Long at round start and Omen smokes the push."],
+    ["Rule","Call numbers fast. The other sites rotate on info, not on gunfire."]
+  ],
+  keys: ["Speed beats perfect setups on Haven.","Sova's first recon should change our call every round.","Pros found it almost perfectly balanced (attack 51% / defence 49%)."]
+},
+Lotus: {
+  tagline: "Three sites, rotating doors, heavy post-plants, defense-sided. Pros: Omen 100%, Viper 77%, Fade 77%.",
+  comp: [
+    ["raze","raze","Entry and clearing tight corners. The ult punishes stacked sites."],
+    ["fade","fade","Clears A Tree, C Mound and the corners before peeks."],
+    ["omen","omen","Smokes any of the three sites from the middle of the map."],
+    ["chamber","neon","Holds the site with the Op and Trademark watches the flank."],
+    ["viper","chamber","Second controller. Walls and lineups on three sites."]
+  ],
+  flaws: [
+    "Two duelists and one controller on a three-site map. Pros always run Omen + Viper here.",
+    "Lotus is defense-sided (attack wins only 46% of rounds in pro play), so attack needs more utility, not another duelist.",
+    "GOAT moves to Viper. YUZUFRUIT takes Chamber (already on his list for Lotus)."
+  ],
+  alt: "If YUZUFRUIT prefers it, he can play Vyse instead of Chamber (pros pick Vyse 37% on Lotus, way above her normal rate).",
+  attack: [
+    "<b>Default:</b> Take A Main (Rubble and Root) plus C Mound with Fade prowlers. Omen smokes Mid. Viper keeps her wall for the hit.",
+    "<b>A hit:</b> Viper walls the site. Omen smokes A Tree and A Hut. Fade Haunts the site. Raze satchels in, with one player from A Link door.",
+    "<b>C hit:</b> Viper walls down C Main. Omen smokes C Hall and Waterfall. Fade prowls Mound. Raze nades Bend, then everyone enters together.",
+    "<b>B fast:</b> If A and C are stacked, run through the doors to B fast with an Omen smoke on B Upper.",
+    "<b>Post-plant:</b> This is where Lotus is won. Viper + Omen lineups, play rotating doors for timing."
+  ],
+  defense: [
+    ["A site","<b class='p'>YUZUFRUIT</b> (Chamber) + <b class='p'>Jizzychip</b> (Raze)."],
+    ["B","<b class='p'>michael</b> (Omen) sits in the middle and smokes either side early."],
+    ["C site","<b class='p'>GOAT</b> (Viper) + <b class='p'>ace</b> (Fade). Viper wall on C Main, Fade Haunt on Mound."],
+    ["Rule","Rotating doors are loud. Use the noise as info and don't rotate on one sound."]
+  ],
+  keys: ["Never solo-lurk on Lotus. Play together.","Defense-sided: on attack, take space slowly and save utility for the hit.","Fade + Vyse/Chamber + double controller is the pro formula."]
+},
+Summit: {
+  tagline: "Newest map, three lanes, three droppable walls. Mid control is everything. Pros double-sentinel it: Neon + Fade + Chamber/Sage.",
+  comp: [
+    ["fade","fade","Info on the high ground and around the walls. Pros pick her 83% here."],
+    ["neon","neon","Pros pick her 83% here. Speed across lanes once a wall drops."],
+    ["sage","phoenix","Second sentinel. Her wall interacts with Summit's walls and she heals for long rounds."],
+    ["omen","omen","Smokes B Tower and Mid Window. Teleports instead of crossing open ground."],
+    ["vyse","vyse","Highest win rate of any agent on Summit (53.1%). Traps hold wall gaps."]
+  ],
+  flaws: [
+    "Two duelists and one sentinel. Pros run two sentinels to hold the walls (Chamber 69%, Sage 53%).",
+    "michael moves from Phoenix to Sage (already on his Summit list).",
+    "Walls dropped too early close our own rotation. We need a rule for who calls the drop."
+  ],
+  alt: "GOAT can swap Vyse for Chamber (both on his list). Chamber is the more popular pro pick, Vyse wins more in ranked.",
+  attack: [
+    "<b>Default:</b> Take Mid Tiles and Mid Fountain early with Fade + Omen. That gives us A without walking the long A Lobby route.",
+    "<b>B hit (fast, close to spawn):</b> Omen smokes B Tower and the back of B Site. Push B Main while one player goes B Lobby → B Link for a crossfire. Fade clears B Drop and B Trophy before we plant. <b>After the plant, shoot the B wall</b> to cut the retake from Tower.",
+    "<b>A split:</b> Three players A Main, two from Mid Bend → A Link. Fade flashes A Garden and Omen smokes A Cave. On site, drop the A wall to stop defenders rotating through Garden.",
+    "<b>Post-plant:</b> Plant where we can hold the spike from A Main and A Link, not in the open middle."
+  ],
+  defense: [
+    ["B site","<b class='p'>GOAT</b> (Vyse) + <b class='p'>YUZUFRUIT</b> (Omen). Hold B Main from B Tower with a crossfire. The rope from B Gym gets you to Tower fast."],
+    ["Mid","<b class='p'>ace</b> (Neon) holds Mid Bend early, then falls back to A Link."],
+    ["A site","<b class='p'>michael</b> (Sage) + <b class='p'>Jizzychip</b> (Fade). Play off A Cave and A Hall, not the open site."],
+    ["Walls","Only drop the B wall when B is rushed. Save the A wall for when they stack A Garden or A Art. Before retaking, check which walls are already down."]
+  ],
+  keys: ["One person calls wall drops: the IGL. Anyone under a wall when it drops dies.","Retake B from B Tower and B Link together. Going up the rope alone is a free kill for them.","As the newest map, Summit's meta is still moving: check back."]
+},
+Sunset: {
+  tagline: "Compact two sites, big mid, favours attackers who hit from two sides. Pros: Omen 100%, Neon 79%, Fade 71%, Chamber 67%.",
+  comp: [
+    ["fade","phoenix","Our only initiator. Clears corners and gives info for executes."],
+    ["neon","neon","Fast entries and the Mid fights."],
+    ["omen","omen","Smokes for every execute. Pros pick him in 100% of Sunset comps."],
+    ["vyse","vyse","Flank watch and site anchor."],
+    ["chamber","chamber","Op on Mid and the long angles. Teleports to rotate."]
+  ],
+  flaws: [
+    "Zero initiators: nobody could clear corners or get info. That's the biggest hole on the whole board.",
+    "Phoenix + Neon double duelist with no info. Jizzychip moves to Fade (already on his Sunset list).",
+    "Sentinels were right: pros run Chamber plus Sage or Cypher here."
+  ],
+  alt: "YUZUFRUIT can play Cypher instead of Vyse. Both work, and Cypher is the more common pro pick on Sunset.",
+  attack: [
+    "<b>Default:</b> Fight for Mid Top and Courtyard with Fade + Neon and an Omen smoke. Vyse traps the flank. Chamber holds a long angle.",
+    "<b>A split:</b> Three players A Main, two from Mid through A Link. Omen smokes A Elbow and the CT side. Fade Haunts the site. Neon slides in first.",
+    "<b>B split:</b> Three players B Main, two through B Market from Mid. Omen smokes the back of site. Fade prowls the close corners. Hit at the same time.",
+    "<b>Post-plant:</b> Hold from both entries you came through. That's why we split."
+  ],
+  defense: [
+    ["A site","<b class='p'>GOAT</b> (Chamber) anchors A."],
+    ["Mid","<b class='p'>ace</b> (Neon) + <b class='p'>Jizzychip</b> (Fade). Contest Mid early with a Haunt, then fall back to the site that needs help."],
+    ["B site","<b class='p'>YUZUFRUIT</b> (Vyse) anchors with traps, <b class='p'>michael</b> (Omen) smokes the push and rotates."],
+    ["Rule","Mid info decides the rotation. If we lose Mid, call it straight away."]
+  ],
+  keys: ["Attack from two sides at once. That's how Sunset is won.","Win Mid → win the map.","Pros found it almost perfectly balanced (51/49)."]
+}
+};
+const ORDER = ["Abyss","Bind","Haven","Corrode","Sunset","Lotus","Summit"];
+
+/* ---------------- render ---------------- */
+let players = [...PLAYERS];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function face(key){
+  const a = AG[key], rc = `var(--${a[1]})`;
+  return `<div class="face" style="--rc:${rc}"><div class="ini">${a[0].slice(0,2).toUpperCase()}</div><img src="${M}/agents/${a[2]}/displayicon.png" alt="" onerror="this.remove()"></div>`;
+}
+function tabs(cur){
+  document.getElementById("tabs").innerHTML =
+    `<a class="tab ${cur==="overview"?"on":""}" href="#overview">Overview</a>` +
+    ORDER.map(m => `<a class="tab ${cur===m?"on":""}" href="#${m.toLowerCase()}">${m}</a>`).join("");
+}
+function renderOverview(){
+  const changes = ORDER.map(m => STRATS[m].comp.filter(c => c[0]!==c[1]).length);
+  document.getElementById("main").innerHTML = `
+    <div class="hero" style="background-image:url('${M}/maps/${MAPIMG.Summit}/listviewicon.png')">
+      <h2>Team playbook</h2>
+      <p>Recommended comps for every map, built from the agents each of you already put on the Board, with the current pro meta (patch 13.09) and a plan to follow on attack and defence.</p>
+    </div>
+    <h3>The big problems on our board</h3>
+    <div class="grid2">
+      <div class="box flaws"><h4>What's going wrong</h4><ul>
+        <li><b>One controller on every map.</b> Pros run two on Abyss, Bind, Lotus and Corrode.</li>
+        <li><b>Double duelist with no info</b> on Bind, Lotus, Summit and Sunset. Sunset had <b>zero</b> initiators.</li>
+        <li><b>Nobody plays Viper</b> except GOAT, and she's in 3 of our 7 best comps.</li>
+        <li><b>Summit needs two sentinels</b> to hold the walls. We had one.</li>
+      </ul></div>
+      <div class="box"><h4>What's already right</h4><ul>
+        <li>Haven is basically the pro comp.</li>
+        <li>Corrode was 4/5 correct (just swap Neon → Omen).</li>
+        <li>Abyss already had the pro duelist pair (Yoru + Waylay) and Sova.</li>
+        <li>michael's Omen is the most-picked agent in pro play, so keep him on it.</li>
+      </ul></div>
+    </div>
+    <h3>Every change uses an agent you already listed</h3>
+    <div class="overview">${ORDER.map((m,i) => `
+      <a class="ov" href="#${m.toLowerCase()}" style="text-decoration:none">
+        <h4>${m} <span class="badge ${changes[i]?"chg":"keep"}" style="margin-left:6px">${changes[i]?changes[i]+" change"+(changes[i]>1?"s":""):"keep"}</span></h4>
+        <div style="display:flex;gap:6px;margin-top:8px">${STRATS[m].comp.map(c => `<div style="width:48px;text-align:center">${face(c[0]).replace('class="face"','class="face" style="width:48px;height:48px;--rc:var(--'+AG[c[0]][1]+')"')}</div>`).join("")}</div>
+      </a>`).join("")}
+    </div>
+    <h3>Who plays what</h3>
+    <div class="box"><table class="pos">
+      <tr><td></td>${ORDER.map(m=>`<td style="font-weight:600">${m}</td>`).join("")}</tr>
+      ${players.map((p,i)=>`<tr><td>${esc(p)}</td>${ORDER.map(m=>`<td>${AG[STRATS[m].comp[i][0]][0]}</td>`).join("")}</tr>`).join("")}
+    </table></div>
+    ${sources()}`;
+}
+function renderMap(m){
+  const s = STRATS[m];
+  document.getElementById("main").innerHTML = `
+    <div class="hero" style="background-image:url('${M}/maps/${MAPIMG[m]}/listviewicon.png')">
+      <h2>${m}</h2><p>${s.tagline}</p>
+    </div>
+    <h3>Recommended comp</h3>
+    <div class="comp">${s.comp.map((c,i) => {
+      const a = AG[c[0]], changed = c[0]!==c[1];
+      return `<div class="card" style="--rc:var(--${a[1]})">
+        <div class="pl">${esc(players[i])}</div>${face(c[0])}
+        <div class="ag">${a[0]}</div><div class="role">${a[1]}</div>
+        <span class="badge ${changed?"chg":"keep"}">${changed?"was "+(AG[c[1]]?AG[c[1]][0]:c[1]):"no change"}</span>
+        <div class="job">${c[2]}</div></div>`;
+    }).join("")}</div>
+    <div class="row">
+      <button class="btn red" id="applyBtn">Put this comp on the Board</button>
+      <span class="small">Makes these each player's main on ${m}. Nothing gets removed, so your other agents stay as extras.</span>
+    </div>
+    <h3>Flaws we found</h3>
+    <div class="grid2">
+      <div class="box flaws"><h4>Before → after</h4><ul>${s.flaws.map(f=>`<li>${f}</li>`).join("")}</ul></div>
+      <div class="box alt"><h4>Backup option</h4><p style="margin:0">${s.alt}</p></div>
+    </div>
+    <h3><span class="tag atk">ATTACK</span>Game plan</h3>
+    <div class="box"><ul>${s.attack.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    <h3><span class="tag def">DEFENCE</span>Setup</h3>
+    <div class="box"><table class="pos">${s.defense.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>
+    <h3>Remember</h3>
+    <div class="box"><ul>${s.keys.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    <h3>Team notes <span class="sync" id="noteSync"><i></i>loading</span></h3>
+    <textarea class="notes" id="notes" placeholder="Add your own calls, lineups, what worked in last night's games… saves for everyone."></textarea>
+    ${sources()}`;
+  document.getElementById("applyBtn").onclick = () => applyComp(m);
+  loadNotes(m);
+}
+function sources(){
+  return `<div class="sources">Sources: pro pick rates from VCT Champions 2026 (Bind and Corrode from Champions 2025) via
+    <a href="https://gametree.me/blog/best-agents-for-each-valorant-map/" target="_blank" rel="noopener">GameTree</a> and
+    <a href="https://www.valorant-spind.de/en/valorant-agenten-pickrates.html" target="_blank" rel="noopener">valorant-spind</a>.
+    Summit win rates from <a href="https://metabot.gg/en/valorant/map/Summit/overview" target="_blank" rel="noopener">metabot.gg</a>,
+    Summit walls and setups from <a href="https://valorantmaps.gg/summit" target="_blank" rel="noopener">valorantmaps.gg</a>,
+    tier data from <a href="https://valking.gg/en/agents" target="_blank" rel="noopener">valking.gg</a>.
+    Use this as a starting playbook and change what doesn't work in your games.</div>`;
+}
+
+/* ---------------- shared data: notes + "apply to board" ---------------- */
+let noteTimer = null, noteES = null;
+function setNoteSync(t, c){ const el = document.getElementById("noteSync"); if(el) el.innerHTML = `<i style="background:${c}"></i>${t}`; }
+function loadNotes(m){
+  const ta = document.getElementById("notes");
+  if(noteES){ noteES.close(); noteES = null; }
+  if(!DB){ setNoteSync("no database", "#8b9aa8"); return; }
+  if(!TEAM){ setNoteSync("locked", "#8b9aa8"); return; }
+  noteES = new EventSource(`${DB}/${ROOT}/notes/${m}.json`);
+  noteES.addEventListener("put", e => {
+    const msg = JSON.parse(e.data);
+    if(document.activeElement !== ta && msg.path === "/") ta.value = msg.data || "";
+    setNoteSync("saved for everyone", "#6fcf97");
+  });
+  noteES.onerror = () => setNoteSync("offline", "#ff4655");
+  ta.addEventListener("input", () => {
+    setNoteSync("saving…", "#f2c48a");
+    clearTimeout(noteTimer);
+    noteTimer = setTimeout(() => {
+      fetch(`${DB}/${ROOT}/notes/${m}.json`, {method:"PUT", body:JSON.stringify(ta.value)})
+        .then(r => { if(!r.ok) throw 0; setNoteSync("saved for everyone", "#6fcf97"); })
+        .catch(() => setNoteSync("couldn't save", "#ff4655"));
+    }, 600);
+  });
+}
+let applyArmed = null;
+async function applyComp(m){
+  const btn = document.getElementById("applyBtn");
+  if(applyArmed !== m){ applyArmed = m; btn.textContent = "Click again to confirm"; setTimeout(()=>{ if(applyArmed===m){ applyArmed=null; btn.textContent="Put this comp on the Board"; } }, 3000); return; }
+  applyArmed = null; btn.disabled = true; btn.textContent = "Saving…";
+  try{
+    const cur = await fetch(`${DB}/${ROOT}/cells/${m}.json`).then(r => r.json()) || {};
+    const upd = {};
+    STRATS[m].comp.forEach((c,i) => {
+      const raw = cur[i]; const list = !raw ? [] : Array.isArray(raw) ? raw.filter(Boolean) : Object.keys(raw).sort((a,b)=>a-b).map(k=>raw[k]).filter(Boolean);
+      upd[`cells/${m}/${i}`] = [c[0], ...list.filter(k => k !== c[0])];
+    });
+    const r = await fetch(`${DB}/${ROOT}.json`, {method:"PATCH", body:JSON.stringify(upd)});
+    if(!r.ok) throw 0;
+    toast(`${m} comp is now the main pick on the Board`);
+    btn.textContent = "Done ✓";
+  }catch(e){ toast("Couldn't reach the database"); btn.disabled = false; btn.textContent = "Put this comp on the Board"; }
+}
+function toast(msg){ const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("show"), 2200); }
+
+/* player names come from the Board so renames show up here */
+if(DB && TEAM) fetch(`${DB}/${ROOT}/players.json`).then(r=>r.json()).then(pl => {
+  if(pl){ players = players.map((d,i) => (pl[i] && String(pl[i])) || d); route(); }
+}).catch(()=>{});
+
+function route(){
+  const h = (location.hash || "#overview").slice(1).toLowerCase();
+  const m = ORDER.find(x => x.toLowerCase() === h);
+  if(noteES && !m){ noteES.close(); noteES = null; }
+  tabs(m || "overview");
+  m ? renderMap(m) : renderOverview();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
