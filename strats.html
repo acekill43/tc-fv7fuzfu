@@ -116,7 +116,7 @@ const DB = DATABASE_URL.trim().replace(/\/+$/,"");
 
 /* ---------- team code: the board lives at teams/<code> and the code is never stored in this file ---------- */
 const CODE_KEY = "vcp_team_code";
-const TEAM = (() => { try{ return (localStorage.getItem(CODE_KEY) || "").trim(); }catch(e){ return ""; } })();
+const TEAM = "vsj9-re2m-fxha";   // built in: no code prompt
 const ROOT = "teams/" + TEAM;
 function showGate(){
   const g = document.createElement("div");
@@ -141,7 +141,6 @@ function showGate(){
   setTimeout(() => inp.focus(), 50);
 }
 function forgetCode(){ try{ localStorage.removeItem(CODE_KEY); }catch(e){} location.reload(); }
-if(!TEAM) document.addEventListener("DOMContentLoaded", showGate);
 const PLAYERS = ["Jizzychip","ace","michael","YUZUFRUIT","GOAT"];   // board columns 1-5 (names refresh from the board)
 const M = "https://media.valorant-api.com";
 const AG = {

@@ -113,7 +113,6 @@
   <nav class="nav"><a href="index.html" class="on">Board</a><a href="strats.html">Strats</a></nav>
   <span class="status sync" id="sync"></span>
   <span class="status" id="status"></span>
-  <button class="codebtn" onclick="forgetCode()" title="Lock this device / enter a different code">Change team code</button>
   <div class="spacer"></div>
   <button class="btn" id="undoBtn" title="Ctrl+Z">Undo</button>
   <button class="btn" id="folderBtn">Load icon folder</button>
@@ -166,7 +165,7 @@ const DATABASE_URL = "https://team-comps-e65ad-default-rtdb.firebaseio.com";
 
 /* ---------- team code: the board lives at teams/<code> and the code is never stored in this file ---------- */
 const CODE_KEY = "vcp_team_code";
-const TEAM = (() => { try{ return (localStorage.getItem(CODE_KEY) || "").trim(); }catch(e){ return ""; } })();
+const TEAM = "vsj9-re2m-fxha";   // built in: no code prompt
 const ROOT = "teams/" + TEAM;
 function showGate(){
   const g = document.createElement("div");
@@ -191,7 +190,6 @@ function showGate(){
   setTimeout(() => inp.focus(), 50);
 }
 function forgetCode(){ try{ localStorage.removeItem(CODE_KEY); }catch(e){} location.reload(); }
-if(!TEAM) document.addEventListener("DOMContentLoaded", showGate);
 
 const MAPS = ["Abyss","Bind","Haven","Corrode","Sunset","Lotus","Summit"];
 const DEFAULT_PLAYERS = ["fizzy","ace","atsua","yuyu","sam7"];
